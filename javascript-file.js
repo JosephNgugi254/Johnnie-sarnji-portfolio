@@ -218,87 +218,113 @@ function validateAndSend() {
 
 
 
+// scroll up button element
+// Get the button element
+var scrollTopBtn = document.getElementById("scrollTopBtn");
 
-// // small screens my works slider handler
-// document.addEventListener('DOMContentLoaded', function() {
-//   const videoItems = document.querySelectorAll('.video-item');
-//   const prevButton = document.getElementById('prev-video-sm');
-//   const nextButton = document.getElementById('next-video-sm');
-//   let currentIndex = 0;
+// Show the button when scrolling down
+window.onscroll = function() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    scrollTopBtn.style.display = "block";
+  } else {
+    scrollTopBtn.style.display = "none";
+  }
+};
 
-//   function updateSlider() {
-//       videoItems.forEach((item, index) => {
-//           item.classList.remove('current', 'previous', 'next');
-//           if (index === currentIndex) {
-//               item.classList.add('current');
-//           } else if (index === currentIndex - 1 || (currentIndex === 0 && index === videoItems.length - 1)) {
-//               item.classList.add('previous');
-//           } else if (index === currentIndex + 1 || (currentIndex === videoItems.length - 1 && index === 0)) {
-//               item.classList.add('next');
-//           }
-//       });
-//       const offset = -currentIndex * 100 / videoItems.length;
-//       document.querySelector('.video-grid').style.transform = `translateX(${offset}%)`;
-//   }
-
-//   prevButton.addEventListener('click', () => {
-//       currentIndex = (currentIndex - 1 + videoItems.length) % videoItems.length;
-//       updateSlider();
-//   });
-
-//   nextButton.addEventListener('click', () => {
-//       currentIndex = (currentIndex + 1) % videoItems.length;
-//       updateSlider();
-//   });
-
-//   updateSlider();
-// });
+// Scroll to the top when the button is clicked
+scrollTopBtn.onclick = function() {
+  document.body.scrollTop = 0; // For Safari
+  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE, and Opera
+};
 
 
 
 
-// javascript for videos im my works section for small screens
-// document.addEventListener('DOMContentLoaded', function() {
-//     const videoItems = document.querySelectorAll('.video-item');
-//     let currentIndex = 0;
+// javascript for my works section video slider display in small devices
+document.addEventListener('DOMContentLoaded', function() {
+  const videoGrid = document.querySelector('.video-grid');
+  const videoItems = document.querySelectorAll('.video-item');
+  const prevButtonSm = document.getElementById('prev-video-sm');
+  const nextButtonSm = document.getElementById('next-video-sm');
+  const videoSection = document.getElementById('my-works-section');
 
-//     function updateClasses() {
-//         videoItems.forEach((item, index) => {
-//             item.classList.remove('current', 'previous', 'next');
-//             if (index === currentIndex) {
-//                 item.classList.add('current');
-//             } else if (index === currentIndex - 1 || (currentIndex === 0 && index === videoItems.length - 1)) {
-//                 item.classList.add('previous');
-//             } else if (index === currentIndex + 1 || (currentIndex === videoItems.length - 1 && index === 0)) {
-//                 item.classList.add('next');
-//             }
-//         });
-//     }
+  let currentIndex = 0;
 
-//     document.getElementById('prev-video-sm').addEventListener('click', function() {
-//         currentIndex = (currentIndex - 1 + videoItems.length) % videoItems.length;
-//         updateClasses();
-//     });
+  prevButtonSm.addEventListener('click', () => {
+      if (currentIndex > 0) {
+          currentIndex--;
+          scrollToVideo(currentIndex);
+      }
+  });
 
-//     document.getElementById('next-video-sm').addEventListener('click', function() {
-//         currentIndex = (currentIndex + 1) % videoItems.length;
-//         updateClasses();
-//     });
+  nextButtonSm.addEventListener('click', () => {
+      if (currentIndex < videoItems.length - 1) {
+          currentIndex++;
+          scrollToVideo(currentIndex);
+      }
+  });
 
-//     videoItems.forEach((item, index) => {
-//         item.addEventListener('click', function() {
-//             if (!item.classList.contains('current')) {
-//                 currentIndex = index;
-//                 updateClasses();
-//             } else {
-//                 const video = item.querySelector('video');
-//                 video.paused ? video.play() : video.pause();
-//             }
-//         });
-//     });
+  function scrollToVideo(index) {
+      const videoItem = videoItems[index];
+      videoItem.scrollIntoView({ behavior: 'smooth', inline: 'center' });
+      playVideo(index);
+  }
 
-//     updateClasses();
-// });
+  function playVideo(index) {
+      videoItems.forEach((item, i) => {
+          const video = item.querySelector('video');
+          if (i === index) {
+              video.play();
+          } else {
+              video.pause();
+              video.currentTime = 0;
+          }
+      });
+  }
+
+  videoItems.forEach((item, index) => {
+      const video = item.querySelector('video');
+      const playButton = item.querySelector('.play-button');
+
+      item.addEventListener('mouseover', () => {
+          video.play();
+          video.style.boxShadow = '0 0 10px black';
+      });
+
+      item.addEventListener('mouseout', () => {
+          video.pause();
+          video.currentTime = 0;
+          video.style.boxShadow = 'none';
+      });
+
+      playButton.addEventListener('click', (e) => {
+          e.stopPropagation(); // Prevent triggering the parent click event
+          currentIndex = index; // Update current index
+          if (video.paused) {
+              video.play();
+          } else {
+              video.pause();
+          }
+      });
+  });
+
+  function checkVisibility() {
+      const rect = videoSection.getBoundingClientRect();
+      const viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
+      const isVisible = !(rect.bottom < 0 || rect.top - viewHeight >= 0);
+
+      if (isVisible) {
+          prevButtonSm.style.display = 'flex';
+          nextButtonSm.style.display = 'flex';
+      } else {
+          prevButtonSm.style.display = 'none';
+          nextButtonSm.style.display = 'none';
+      }
+  }
+
+  window.addEventListener('scroll', checkVisibility);
+  checkVisibility(); // Initial check
+});
 
 
 

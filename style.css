@@ -491,6 +491,7 @@ svg {
     transition: box-shadow 0.3s ease, transform 0.3s ease;
     height: 25rem; /* Reduced height to maintain portrait orientation */
     flex-wrap: wrap;
+    cursor: pointer;
 }
 
 .video-item video {
@@ -586,6 +587,10 @@ svg {
     margin: auto;
 } 
 
+#button-controls-sm {
+    display: none;
+}
+
 
 
 
@@ -643,7 +648,7 @@ svg {
     justify-content: space-between;
     align-items: flex-start;
     width: 100%;
-    padding: 2rem;
+    padding: 1rem;
     box-sizing: border-box;
 }
 
@@ -800,7 +805,7 @@ svg {
 .contacts-image .image::after {
     background: linear-gradient(0deg, #2e2e2c 5%, #f5ab1a 70%);
     margin-top: -30px;
-    margin-left: -20px;
+    margin-left: -20px;    
 }
 
 .contacts-image .image::before {
@@ -1149,6 +1154,7 @@ footer p {
         width: 11rem;
         margin: auto;
     }    
+    
 
     /* contacts section media query */
     .content-whole-contacts {
@@ -1343,6 +1349,14 @@ footer p {
         margin: 0 auto;
     }
 
+    .header-image .image::after {        
+        padding-top: 2rem;
+    }
+    
+    .header-image .image::before {
+        padding-bottom: 2rem;
+    }
+
     .navbar .navbar-brand {
         font-size: 1rem;
     }
@@ -1465,47 +1479,92 @@ footer p {
     }
 
     /* my works section media query begining */
-    .video-modal video {        
-        width: 85%; 
-        height: 85%; 
-        object-fit: cover;
-        border: 1px solid #f5ab1a;
-        border-radius: 20px;
-        z-index: 1;
-        margin-left: 4%;
+    .video-grid {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow: hidden; /* Remove scrollbars */
+        -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+        scroll-behavior: smooth;
+        position: relative;
+        padding: 10px 0; /* Add some padding for better spacing */
+    }
+    
+    .video-item {
+        flex: 0 0 80%; /* 80% width for video items */
+        margin: 10px;
+        transition: transform 0.3s ease-in-out; /* Smooth transition for transform */
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Optional: add some shadow for better visual separation */
+    }
+    
+    #button-controls-sm {
+        display: flex;
+        justify-content: space-between;
+        position: fixed; /* Make buttons fixed so they stay in view */
+        top: 50%;
+        width: 100%;
+        transform: translateY(-50%);
+        pointer-events: none; /* Allow clicking through the buttons */
+        z-index: 1000;
+        display: none; /* Hide buttons initially */
+    }
+    
+    #prev-video-sm, #next-video-sm {
+        background: rgba(0, 0, 0, 0.5);
+        border-radius: 50%;
+        color: #fff;
+        font-size: 2rem;
+        cursor: pointer;
+        pointer-events: auto; /* Enable clicking on the buttons */
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    #prev-video-sm svg, #next-video-sm svg {
+        width: 32px; /* Adjust SVG size */
+        height: 32px;
+    }
+    
+    .video-modal {
+        display: none; /* Initially hidden */
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        z-index: 2000;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .video-modal.active {
+        display: flex; /* Show modal when active */
+    }
+    
+    .video-modal video {
+        max-width: 90%;
+        max-height: 90%;
+    }
+    
+    .video-controls {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        padding: 10px;
     }
     
     #close-modal {
         position: absolute;
-        top: 1%;
-        right: 93%;
-        font-size: 2rem;
+        top: 20px;
+        right: 20px;
         color: white;
+        font-size: 2rem;
         cursor: pointer;
-        z-index: 2;
     }
     
-    .video-controls {        
-        margin-top: 20px;
-        display: flex;
-        justify-content: space-between;        
-        width: 100%;        
-        z-index:5;
-        gap: 20%;                           
-    }
     
-    .video-controls button {
-        background-color: #f5ab1a;
-        border: none;
-        padding: 10px;
-        color: #000;
-        font-weight: bold;
-        cursor: pointer;
-        font-size: 1.2rem;
-        border-radius: 20px;
-        width: 6rem;
-        margin: auto;
-    }
     /* my works section media query end */
 
     /* contacts section media query */
@@ -1758,6 +1817,31 @@ footer p {
   .dot-spinner__dot:nth-child(8)::before {
     animation-delay: calc(var(--uib-speed) * -0.125);
   }
+
+
+
+  #scrollTopBtn {
+    display: none;
+    position: fixed;
+    width: 35px;
+    height: 35px;
+    bottom: 4rem;
+    right: 2rem;
+    background-color: #f5ab1a;
+    color: white;
+    border-radius: 10px;    
+    z-index: 1000;
+    cursor: pointer;
+  }
+  
+  #scrollTopBtn svg {
+    width: 100%;
+    height: 100%;
+  }
+  
+  
+
+
   
   @keyframes pulse0112 {
     0%,
