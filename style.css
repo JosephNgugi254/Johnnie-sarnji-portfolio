@@ -1479,92 +1479,117 @@ footer p {
     }
 
     /* my works section media query begining */
-    .video-grid {
+    #my-works-section .video-grid {
         display: flex;
         flex-wrap: nowrap;
-        overflow: hidden; /* Remove scrollbars */
-        -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+        overflow-x: scroll;
+        scroll-snap-type: x mandatory;
         scroll-behavior: smooth;
         position: relative;
-        padding: 10px 0; /* Add some padding for better spacing */
+        padding: 10px 0;
     }
-    
-    .video-item {
-        flex: 0 0 80%; /* 80% width for video items */
+
+    #my-works-section .video-item {
+        flex: 0 0 60%; /* Width of each video item */
+        scroll-snap-align: center; /* Snap to the center of each video item */
         margin: 10px;
-        transition: transform 0.3s ease-in-out; /* Smooth transition for transform */
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Optional: add some shadow for better visual separation */
+        transition: transform 0.3s ease-in-out;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
-    
-    #button-controls-sm {
+
+    #my-works-section #button-controls-sm {
         display: flex;
         justify-content: space-between;
-        position: fixed; /* Make buttons fixed so they stay in view */
+        position: absolute; /* Position within the section */
         top: 50%;
         width: 100%;
         transform: translateY(-50%);
         pointer-events: none; /* Allow clicking through the buttons */
         z-index: 1000;
-        display: none; /* Hide buttons initially */
     }
-    
-    #prev-video-sm, #next-video-sm {
-        background: rgba(0, 0, 0, 0.5);
-        border-radius: 50%;
-        color: #fff;
+
+    #my-works-section #prev-video-sm, #my-works-section #next-video-sm {
+        border-radius: 10%;
+        color: #f5ab1a;
         font-size: 2rem;
         cursor: pointer;
         pointer-events: auto; /* Enable clicking on the buttons */
-        padding: 10px;
         display: flex;
         align-items: center;
         justify-content: center;
     }
-    
-    #prev-video-sm svg, #next-video-sm svg {
-        width: 32px; /* Adjust SVG size */
-        height: 32px;
+
+    #my-works-section #prev-video-sm svg, #my-works-section #next-video-sm svg {
+        width: 4rem;
+        height: 3rem;
     }
-    
-    .video-modal {
-        display: none; /* Initially hidden */
+
+    #my-works-section #prev-video-sm,
+    #my-works-section #next-video-sm {
+        display: block;
         position: fixed;
-        top: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 1001;
+        cursor: pointer;
+    }
+
+    #my-works-section #prev-video-sm {
         left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.8);
-        z-index: 2000;
-        justify-content: center;
-        align-items: center;
+        border-radius: 0 50% 50% 0;
+        color: #f5ab1a; /* Adjust styling as needed */
     }
-    
-    .video-modal.active {
-        display: flex; /* Show modal when active */
+
+    #my-works-section #next-video-sm {
+        right: 0;
+        border-radius: 50% 0 0 50%;
+        color: #f5ab1a; /* Adjust styling as needed */
     }
-    
+
     .video-modal video {
-        max-width: 90%;
-        max-height: 90%;
-    }
-    
-    .video-controls {
         display: flex;
-        justify-content: space-between;
-        width: 100%;
-        padding: 10px;
+        justify-content: center;  
+        position: sticky;      
+        width: 84%; 
+        height: 85%; 
+        object-fit: cover;
+        border: 1px solid #f5ab1a;
+        border-radius: 30px;
+        z-index: 1;                
     }
     
     #close-modal {
-        position: absolute;
-        top: 20px;
-        right: 20px;
+        position: absolute; 
+        top: 1px;       
+        right: 90%;
+        font-size: 3rem;
         color: white;
-        font-size: 2rem;
         cursor: pointer;
+        z-index: 2;
     }
     
+    .video-controls {        
+        margin-top: 20px;
+        display: flex;
+        justify-content: space-between;        
+        width: 100%;        
+        z-index:5;
+        gap: 8%;                           
+    }
     
+    .video-controls button {
+        background-color: #f5ab1a;
+        border: none;
+        padding: 10px;
+        color: #000;
+        font-weight: bold;
+        cursor: pointer;
+        font-size: 1.3rem;
+        border-radius: 20px;
+        width: 7rem;
+        margin: auto;
+    }   
+            
     /* my works section media query end */
 
     /* contacts section media query */
