@@ -1526,7 +1526,7 @@ footer p {
 
     #my-works-section #prev-video-sm,
     #my-works-section #next-video-sm {
-        display: block;
+        display: none;        
         position: fixed;
         top: 50%;
         transform: translateY(-50%);
