@@ -237,7 +237,7 @@ function validateAndSend() {
 
       // Hide the loading indicator after the action is taken
       loadingIndicator.style.display = 'none';
-  }, 7000); // 7 seconds delay for demonstration
+  }, 5000); // 7 seconds delay for demonstration
 
   return false; // Prevents form submission and page refresh
 }
@@ -272,116 +272,172 @@ document.addEventListener('DOMContentLoaded', function() {
   const prevButtonSm = document.getElementById('prev-video-sm');
   const nextButtonSm = document.getElementById('next-video-sm');
   const scrollTopBtn = document.getElementById('scrollTopBtn'); // Assuming this is the scroll top button
-  let currentVideoIndex = -1;
+  let currentVideoIndex = 0; // Start with the first video
 
-  videoItems.forEach((item, index) => {
-      const video = item.querySelector('video');
-
-      item.addEventListener('mouseover', () => {
-          var playPromise = video.play();
-
-          if (playPromise !== undefined) {
-              playPromise.then(_ => {
-                  video.style.boxShadow = '0 0 10px black';
-              }).catch(error => {
-                  console.error('Play prevented: ', error);
-              });
-          }
-      });
-
-      item.addEventListener('mouseout', () => {
-          video.pause();
-          video.currentTime = 0;
-          video.style.boxShadow = 'none';
-      });
-
-      item.addEventListener('click', () => {
-          pauseAllVideos();
-          currentVideoIndex = index;
-          openModal(video.src);
-          hideScrollTopBtn();
-      });
-  });
-
-  closeModal.addEventListener('click', () => {
-      closeModalFunction();
-      showScrollTopBtn();
-  });
-
-  window.addEventListener('click', (event) => {
-      if (event.target == modal) {
-          closeModalFunction();
-          showScrollTopBtn();
-      }
-  });
-
-  prevButtonSm.addEventListener('click', () => {
-      scrollVideoGrid(-1);
-  });
-
-  nextButtonSm.addEventListener('click', () => {
-      scrollVideoGrid(1);
-  });
-
+  // Function to open the modal with the selected video
   function openModal(videoSrc) {
-      modalVideo.pause();
-      modalVideo.currentTime = 0;
-      modalVideo.src = videoSrc;
-      var playPromise = modalVideo.play();
-
-      if (playPromise !== undefined) {
-          playPromise.then(_ => {
-              modal.style.display = 'flex';
-          }).catch(error => {
-              console.error('Play prevented: ', error);
-          });
-      }
+    modalVideo.src = videoSrc;
+    modal.style.display = 'flex'; // Show the modal
+    modalVideo.play(); // Play the video
   }
 
+  // Function to close the modal
   function closeModalFunction() {
-      modal.style.display = 'none';
-      modalVideo.pause();
-      modalVideo.currentTime = 0;
+    modal.style.display = 'none';
+    modalVideo.pause();
+    modalVideo.currentTime = 0; // Reset video time
   }
 
-  function scrollVideoGrid(direction) {
-      const videoGrid = document.querySelector('.video-grid');
-      const itemWidth = videoItems[0].clientWidth + 20; // item width + margin
-      let scrollPosition = videoGrid.scrollLeft + (direction * itemWidth);
-      const maxScrollPosition = videoGrid.scrollWidth - videoGrid.clientWidth;
-
-      // Wrap around if we reach the end or start
-      if (scrollPosition < 0) {
-          scrollPosition = maxScrollPosition;
-      } else if (scrollPosition > maxScrollPosition) {
-          scrollPosition = 0;
-      }
-
-      videoGrid.scrollTo({
-          left: scrollPosition,
-          behavior: 'smooth'
-      });
-
-      // Update the currentVideoIndex based on the new scroll position
-      const newCenterIndex = Math.round(scrollPosition / itemWidth);
-      currentVideoIndex = newCenterIndex;
+  // Function to update the modal video source and play it
+  function updateModalVideo() {
+    const newVideoSrc = videoItems[currentVideoIndex].querySelector('video').src;
+    modalVideo.src = newVideoSrc;
+    modalVideo.play(); // Play the new video
   }
 
-  function hideScrollTopBtn() {
-      scrollTopBtn.style.display = 'none';
-  }
+  // Add click event listeners to video items
+  videoItems.forEach((item, index) => {
+    const video = item.querySelector('video');
 
-  function showScrollTopBtn() {
-      scrollTopBtn.style.display = 'block';
-  }
+    item.addEventListener('click', () => {
+      currentVideoIndex = index; // Set the current video index
+      openModal(video.src); // Open modal with the selected video
+    });
+  });
 
-  function pauseAllVideos() {
-      videoItems.forEach(item => {
-          const video = item.querySelector('video');
-          video.pause();
-          video.currentTime = 0;
-      });
-  }
+  // Close modal when clicking the close button
+  closeModal.addEventListener('click', closeModalFunction);
+
+  // Previous button functionality
+  prevButtonSm.addEventListener('click', () => {
+    currentVideoIndex--; // Move to the previous video
+    if (currentVideoIndex < 0) {
+      currentVideoIndex = videoItems.length - 1; // Wrap around to the last video
+    }
+    updateModalVideo(); // Update the modal video
+  });
+
+  // Next button functionality
+  nextButtonSm.addEventListener('click', () => {
+    currentVideoIndex++; // Move to the next video
+    if (currentVideoIndex >= videoItems.length) {
+      currentVideoIndex = 0; // Wrap around to the first video
+    }
+    updateModalVideo(); // Update the modal video
+  });
+});
+
+
+// Check if the screen width is mobile
+function isMobile() {
+    return window.innerWidth <= 600;
+}
+
+// Adjust the openModal function to ensure the video plays correctly
+function openModal(videoSrc) {
+    if (isMobile()) {
+        modalVideo.src = videoSrc; // Set the video source
+        modalVideo.pause(); // Pause any currently playing video
+        modalVideo.currentTime = 0; // Reset the video time
+        var playPromise = modalVideo.play();
+
+        if (playPromise !== undefined) {
+            playPromise.then(_ => {
+                modal.style.display = 'flex'; // Show the modal
+            }).catch(error => {
+                console.error('Play prevented: ', error);
+            });
+        }
+    }
+}
+
+// Update the scrollVideoGrid function to ensure correct video display
+function scrollVideoGrid(direction) {
+    if (isMobile()) {
+        const videoGrid = document.querySelector('.video-grid');
+        const itemWidth = videoItems[0].clientWidth + 20; // item width + margin
+        let scrollPosition = videoGrid.scrollLeft + (direction * itemWidth);
+        const maxScrollPosition = videoGrid.scrollWidth - videoGrid.clientWidth;
+
+        // Wrap around if we reach the end or start
+        if (scrollPosition < 0) {
+            scrollPosition = maxScrollPosition;
+        } else if (scrollPosition > maxScrollPosition) {
+            scrollPosition = 0;
+        }
+
+        videoGrid.scrollTo({
+            left: scrollPosition,
+            behavior: 'smooth'
+        });
+
+        // Update the currentVideoIndex based on the new scroll position
+        const newCenterIndex = Math.round(scrollPosition / itemWidth);
+        currentVideoIndex = newCenterIndex;
+    }
+}
+
+// Initialize the video slider functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const videoItems = document.querySelectorAll('.video-item');
+    const modal = document.getElementById('video-modal');
+    const modalVideo = document.getElementById('modal-video');
+    const closeModal = document.getElementById('close-modal');
+    const prevButtonSm = document.getElementById('prev-video-sm');
+    const nextButtonSm = document.getElementById('next-video-sm');
+    let currentVideoIndex = 0; // Start with the first video
+
+    // Function to open the modal with the selected video
+    function openModal(videoSrc) {
+        modalVideo.src = videoSrc;
+        modal.style.display = 'flex'; // Show the modal
+        modalVideo.play(); // Play the video
+    }
+
+    // Function to close the modal
+    function closeModalFunction() {
+        modal.style.display = 'none';
+        modalVideo.pause();
+        modalVideo.currentTime = 0; // Reset video time
+    }
+
+    // Function to update the modal video source and play it
+    function updateModalVideo() {
+        const newVideoSrc = videoItems[currentVideoIndex].querySelector('video').src;
+        modalVideo.src = newVideoSrc;
+        modalVideo.play(); // Play the new video
+    }
+
+    // Add click event listeners to video items
+    videoItems.forEach((item, index) => {
+        const video = item.querySelector('video');
+
+        item.addEventListener('click', () => {
+            currentVideoIndex = index; // Set the current video index
+            openModal(video.src); // Open modal with the selected video
+        });
+    });
+
+    // Close modal when clicking the close button
+    closeModal.addEventListener('click', closeModalFunction);
+
+    // Previous button functionality
+    prevButtonSm.addEventListener('click', () => {
+        currentVideoIndex--; // Move to the previous video
+        if (currentVideoIndex < 0) {
+            currentVideoIndex = videoItems.length - 1; // Wrap around to the last video
+        }
+        updateModalVideo(); // Update the modal video
+    });
+
+    // Next button functionality
+    nextButtonSm.addEventListener('click', () => {
+        currentVideoIndex++; // Move to the next video
+        if (currentVideoIndex >= videoItems.length) {
+            currentVideoIndex = 0; // Wrap around to the first video
+        }
+        updateModalVideo(); // Update the modal video
+    });
 });
 
 
