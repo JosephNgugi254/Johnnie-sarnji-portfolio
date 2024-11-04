@@ -115,10 +115,6 @@ body {
     margin-right: 2rem; 
 }
 
-.typewrite{
-    color: #f5ab1a;
-}
-
 .header-buttons .btn {
     background: transparent;
     width: 10.5rem;
@@ -189,7 +185,7 @@ body {
 
 
 
-/* Begin of about me section styling */
+/* Begining of about me section styling */
 #about-me {
     height: fit-content;
     width: 100vw;
@@ -1898,4 +1894,9 @@ footer p {
             0 0 6px #000, 
             0 0 8px #fff;
     }
+}
+
+.dev-link {
+    color: #f5ab1a;
+    text-decoration: none;
 }
