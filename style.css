@@ -688,7 +688,7 @@ svg {
     left: 10%;
 }
 
-.contacts-form input {
+.contacts-form input,textarea {
     color: #f5ab1a;
     font-weight: 400;
     font-size: large;
@@ -708,11 +708,6 @@ svg {
 .contacts-form input[type="text"]:focus {
     border: 2px solid #f5ab1a;
     color: #f5ab1a;
-}
-
-#message {
-    height: 8rem;
-    border-radius: 20px;
 }
 
 #submit-button {

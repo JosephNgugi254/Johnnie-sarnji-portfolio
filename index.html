@@ -167,7 +167,7 @@
             <div class="video-grid">
                 <!-- first row videos start -->
                 <div class="video-item">
-                    <video src="video-clips/BM KCB Treatment.mp4"></video>
+                    <video src="./video-clips/BM KCB Treatment.mp4"></video>
                     <div class="play-button"></div>
                 </div>
                 <div class="video-item">
@@ -266,8 +266,8 @@
                         <span id="emailError" class="error"></span><br> <!-- to display email validation error --> 
                         <input type="text" id="Email" name="email"placeholder="Enter Email"><br>
                         <span id="messageError" class="error"></span><!-- to display message validation error -->
-                        <input type="textbox" id="message" name="message" placeholder="Enter your message here"><br>
-                        <input type="button" id="submit-button" value="Send message" onclick="validateAndSend()">
+                        <textarea rows="10" cols="5" id="messageBox" name="message" placeholder="Enter your message here"></textarea><br>
+                        <input type="submit" id="submit-button" value="Send message" onclick="validateAndSend()">
                         <Br>
                         <div id="loading" style="display: none;">
                             <div class="dot-spinner">

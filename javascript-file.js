@@ -182,65 +182,65 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-// contact form email validation and sending script 
-function validateAndSend() {
-  const emailInput = document.getElementById('Email');
-  const messageInput = document.getElementById('message');
-  const emailError = document.getElementById('emailError');
-  const messageError = document.getElementById('messageError');
-  const loadingIndicator = document.getElementById('loading');
+// // contact form email validation and sending script 
+// function validateAndSend() {
+//   const emailInput = document.getElementById('Email');
+//   const messageInput = document.getElementById('message');
+//   const emailError = document.getElementById('emailError');
+//   const messageError = document.getElementById('messageError');
+//   const loadingIndicator = document.getElementById('loading');
 
-  const email = emailInput.value.trim();
-  const message = messageInput.value.trim();
+//   const email = emailInput.value.trim();
+//   const message = messageInput.value.trim();
 
-  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+//   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  if (!email) {
-      emailError.textContent = 'Please enter your email.';
-      emailInput.style.borderColor = 'red'; // Change border color to red
-      emailInput.focus();
-      return false; // Prevents form submission and page refresh
-  } else {
-      emailError.textContent = ''; // Clear the error message if valid
-      emailInput.style.borderColor = ''; // Reset border color
-  }
+//   if (!email) {
+//       emailError.textContent = 'Please enter your email.';
+//       emailInput.style.borderColor = 'red'; // Change border color to red
+//       emailInput.focus();
+//       return false; // Prevents form submission and page refresh
+//   } else {
+//       emailError.textContent = ''; // Clear the error message if valid
+//       emailInput.style.borderColor = ''; // Reset border color
+//   }
 
-  if (!emailPattern.test(email)) {
-      emailError.textContent = 'Please enter a valid email address.';
-      emailInput.style.borderColor = 'red'; // Change border color to red
-      emailInput.focus();
-      return false; // Prevents form submission and page refresh
-  } else {
-      emailError.textContent = ''; // Clear the error message if valid
-      emailInput.style.borderColor = ''; // Reset border color
-  }
+//   if (!emailPattern.test(email)) {
+//       emailError.textContent = 'Please enter a valid email address.';
+//       emailInput.style.borderColor = 'red'; // Change border color to red
+//       emailInput.focus();
+//       return false; // Prevents form submission and page refresh
+//   } else {
+//       emailError.textContent = ''; // Clear the error message if valid
+//       emailInput.style.borderColor = ''; // Reset border color
+//   }
 
-  if (!message) {
-      messageError.textContent = 'Please enter a message.';
-      messageInput.style.borderColor = 'red'; // Change border color to red
-      messageInput.focus();
-      return false; // Prevents form submission and page refresh
-  } else {
-      messageError.textContent = ''; // Clear the error message if valid
-      messageInput.style.borderColor = ''; // Reset border color
-  }
+//   if (!message) {
+//       messageError.textContent = 'Please enter a message.';
+//       messageInput.style.borderColor = 'red'; // Change border color to red
+//       messageInput.focus();
+//       return false; // Prevents form submission and page refresh
+//   } else {
+//       messageError.textContent = ''; // Clear the error message if valid
+//       messageInput.style.borderColor = ''; // Reset border color
+//   }
 
-  // Show the loading indicator
-  loadingIndicator.style.display = 'block';
+//   // Show the loading indicator
+//   loadingIndicator.style.display = 'block';
 
-  // Simulate a delay to show the loading indicator for a moment
-  setTimeout(() => {
-      const subject = 'CLIENT INQUIRY';
-      const mailtoLink = `mailto:sarnjij@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
+//   // Simulate a delay to show the loading indicator for a moment
+//   setTimeout(() => {
+//       const subject = 'CLIENT INQUIRY';
+//       const mailtoLink = `mailto:sarnjij@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
 
-      window.location.href = mailtoLink;
+//       window.location.href = mailtoLink;
 
-      // Hide the loading indicator after the action is taken
-      loadingIndicator.style.display = 'none';
-  }, 5000); // 7 seconds delay for demonstration
+//       // Hide the loading indicator after the action is taken
+//       loadingIndicator.style.display = 'none';
+//   }, 5000); // 7 seconds delay for demonstration
 
-  return false; // Prevents form submission and page refresh
-}
+//   return false; // Prevents form submission and page refresh
+// }
 
 
 // scroll to top button element
@@ -262,8 +262,7 @@ scrollTopBtn.onclick = function() {
   document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE, and Opera
 };
 
-
-// javascript for my works section video slider display in small devices
+//my works section video slider display in small devices
 document.addEventListener('DOMContentLoaded', function() {
   const videoItems = document.querySelectorAll('.video-item');
   const modal = document.getElementById('video-modal');
@@ -326,7 +325,6 @@ document.addEventListener('DOMContentLoaded', function() {
     updateModalVideo(); // Update the modal video
   });
 });
-
 
 // Check if the screen width is mobile
 function isMobile() {
