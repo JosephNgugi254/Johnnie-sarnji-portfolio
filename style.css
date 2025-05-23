@@ -260,7 +260,6 @@ body {
     justify-content: center;
     text-decoration: none; 
     color: inherit; 
-
 }
 
 .socials div {
@@ -272,6 +271,11 @@ body {
     border: 2px solid #000;
     border-radius: 50%;
     cursor: pointer;
+}
+
+.socials-about-me {
+    margin-bottom: 1rem;
+    margin-left: 3rem;
 }
 
 .socials div:hover{
@@ -1128,7 +1132,8 @@ footer p {
         border-radius: 20px;
         width: 11rem;
         margin: auto;
-    }    
+    }   
+     
     
 
     /* contacts section media query */

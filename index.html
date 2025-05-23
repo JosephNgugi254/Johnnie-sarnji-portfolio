@@ -61,7 +61,6 @@
        </div>
     </section>
     <!-- section header end -->
-
     
     <!-- section about me start -->
     <section id="about-me">
@@ -103,8 +102,7 @@
         </div>
     </section>
     <!-- section about me end -->
-     
-
+    
     <!-- section services start -->
     <section id="services-section">
         <div class="container services-section-container">
@@ -115,7 +113,7 @@
             <div class="services-content">
                 <div class="book">              
                     <div class="cover">
-                        <img src="Images/film-vector.png" alt="film-vector">                        
+                        <img src="Images/vector-cinematography.jpg" alt="film-vector">                        
                         <h2>Cinematography<br> & <br>Videography</h2>                        
                     </div>                
                     <div class="content">
@@ -127,7 +125,7 @@
 
                 <div class="book">
                     <div class="cover">
-                        <img src="Images/digital-creation-vector.png" alt="film-vector">                        
+                        <img src="Images/digital_creation.jpeg" alt="film-vector">                        
                         <h2>Digital<br> Creation</h2>                                               
                     </div>
                     <div class="content">
@@ -139,7 +137,7 @@
 
                 <div class="book">
                     <div class="cover"> 
-                        <img src="Images/social-media-vector.jpeg" alt="film-vector">                       
+                        <img src="Images/social-networking.png" alt="film-vector" id="social-networking">                       
                         <h2>Social media<br>Influencing</h2>                        
                     </div>
                     <div class="content">
@@ -167,7 +165,7 @@
             <div class="video-grid">
                 <!-- first row videos start -->
                 <div class="video-item">
-                    <video src="./video-clips/BM KCB Treatment.mp4"></video>
+                    <video src="video-clips/BM KCB Treatment.mp4"></video>
                     <div class="play-button"></div>
                 </div>
                 <div class="video-item">
@@ -261,13 +259,13 @@
             </div>
             <div class="content-whole-contacts">
                 <div class="contacts-form">
-                    <form id="emailForm" method="POST" action="/send-email">
+                    <form id="emailForm" method="POST" action="/send-email" netlify>
                         <h2 class="f2-3">Talk to me</h2>
                         <span id="emailError" class="error"></span><br> <!-- to display email validation error --> 
                         <input type="text" id="Email" name="email"placeholder="Enter Email"><br>
                         <span id="messageError" class="error"></span><!-- to display message validation error -->
-                        <textarea rows="10" cols="5" id="messageBox" name="message" placeholder="Enter your message here"></textarea><br>
-                        <input type="submit" id="submit-button" value="Send message" onclick="validateAndSend()">
+                        <textarea rows="10" cols="5" id="message" name="message" placeholder="Enter your message here"></textarea><br>
+                        <input type="submit" id="submit-button" value="Send message">
                         <Br>
                         <div id="loading" style="display: none;">
                             <div class="dot-spinner">
